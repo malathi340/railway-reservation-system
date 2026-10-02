@@ -1,0 +1,1176 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>RailNova - Tamil Nadu Railway Reservation</title>
+
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+
+<!-- =====================================================
+     LOADING SCREEN
+===================================================== -->
+
+<div id="loader">
+    <div class="loader-train">🚆</div>
+    <h2>RailNova</h2>
+    <p>Connecting Tamil Nadu...</p>
+</div>
+
+
+<!-- =====================================================
+     NAVBAR
+===================================================== -->
+
+<header class="navbar" id="navbar">
+
+    <div class="brand" onclick="showPage('home')">
+        <div class="brand-icon">🚆</div>
+        <div>
+            <strong>RailNova</strong>
+            <small>Tamil Nadu Railways</small>
+        </div>
+    </div>
+
+    <nav id="mainNav">
+
+        <button onclick="showPage('home')">
+            🏠 Home
+        </button>
+
+        <button onclick="showPage('trains')">
+            🚆 Trains
+        </button>
+
+        <button onclick="showPage('availability')">
+            💺 Availability
+        </button>
+
+        <button onclick="showPage('booking')">
+            🎫 Booking
+        </button>
+
+        <button id="adminNavBtn" onclick="showPage('adminLogin')">
+            👨‍💼 Admin
+        </button>
+
+        <button id="loginNavBtn" onclick="showPage('login')">
+            🔐 Login
+        </button>
+
+        <button id="logoutNavBtn"
+                onclick="logout()"
+                style="display:none;">
+            🚪 Logout
+        </button>
+
+    </nav>
+
+</header>
+
+
+<!-- =====================================================
+     HOME PAGE
+===================================================== -->
+
+<section class="page active-page" id="home">
+
+    <div class="hero">
+
+        <div class="hero-content">
+
+            <div class="hero-badge">
+                ✨ Smart Railway Reservation
+            </div>
+
+            <h1>
+                Explore Tamil Nadu.<br>
+                <span>Travel Smarter.</span>
+            </h1>
+
+            <p>
+                Search trains, check seats, select your coach,
+                reserve your ticket and travel comfortably.
+            </p>
+
+            <div class="hero-buttons">
+
+                <button class="primary-btn"
+                        onclick="showPage('search')">
+                    🔎 Search Trains
+                </button>
+
+                <button class="glass-btn"
+                        onclick="showPage('register')">
+                    📝 Create Account
+                </button>
+
+            </div>
+
+        </div>
+
+
+        <div class="hero-train-area">
+
+            <div class="sun">☀️</div>
+
+            <div class="cloud cloud1">☁️</div>
+            <div class="cloud cloud2">☁️</div>
+
+            <div class="mountain mountain1"></div>
+            <div class="mountain mountain2"></div>
+
+            <div class="rail-track"></div>
+
+            <div class="moving-train">
+                🚆
+            </div>
+
+        </div>
+
+    </div>
+
+
+    <!-- QUICK SEARCH -->
+
+    <div class="quick-search">
+
+        <div class="search-title">
+            <span>🔎</span>
+            <div>
+                <strong>Find your train</strong>
+                <small>Search across Tamil Nadu</small>
+            </div>
+        </div>
+
+        <div class="quick-fields">
+
+            <div>
+                <label>From</label>
+                <input id="homeFrom"
+                       placeholder="Chennai">
+            </div>
+
+            <div class="swap">
+                ⇄
+            </div>
+
+            <div>
+                <label>To</label>
+                <input id="homeTo"
+                       placeholder="Madurai">
+            </div>
+
+            <div>
+                <label>Travel Date</label>
+                <input type="date" id="homeDate">
+            </div>
+
+            <button onclick="homeSearch()">
+                Search 🚆
+            </button>
+
+        </div>
+
+    </div>
+
+
+    <!-- FEATURES -->
+
+    <div class="section">
+
+        <div class="section-heading">
+
+            <span>WHY RAILNOVA?</span>
+
+            <h2>
+                Everything you need for your journey
+            </h2>
+
+        </div>
+
+        <div class="feature-grid">
+
+            <div class="feature-card">
+                <div>🔎</div>
+                <h3>Easy Search</h3>
+                <p>Find trains between stations quickly.</p>
+            </div>
+
+            <div class="feature-card">
+                <div>💺</div>
+                <h3>Seat Selection</h3>
+                <p>Choose your coach and preferred seat.</p>
+            </div>
+
+            <div class="feature-card">
+                <div>💳</div>
+                <h3>Easy Payment</h3>
+                <p>Demo payment with success and decline.</p>
+            </div>
+
+            <div class="feature-card">
+                <div>🎫</div>
+                <h3>Instant PNR</h3>
+                <p>Get your booking number instantly.</p>
+            </div>
+
+        </div>
+
+    </div>
+
+
+    <!-- POPULAR DESTINATIONS -->
+
+    <div class="section">
+
+        <div class="section-heading">
+            <span>POPULAR ROUTES</span>
+            <h2>Explore Tamil Nadu 🚆</h2>
+        </div>
+
+        <div class="destination-grid">
+
+            <div class="destination-card"
+                 onclick="quickRoute('Chennai','Madurai')">
+                <span>🏙️</span>
+                <h3>Chennai → Madurai</h3>
+                <p>Capital to Temple City</p>
+            </div>
+
+            <div class="destination-card"
+                 onclick="quickRoute('Chennai','Coimbatore')">
+                <span>🌆</span>
+                <h3>Chennai → Coimbatore</h3>
+                <p>Gateway to Western TN</p>
+            </div>
+
+            <div class="destination-card"
+                 onclick="quickRoute('Chennai','Salem')">
+                <span>🏔️</span>
+                <h3>Chennai → Salem</h3>
+                <p>Fast and convenient</p>
+            </div>
+
+            <div class="destination-card"
+                 onclick="quickRoute('Chennai','Tirunelveli')">
+                <span>🌴</span>
+                <h3>Chennai → Tirunelveli</h3>
+                <p>Journey towards South TN</p>
+            </div>
+
+        </div>
+
+    </div>
+
+</section>
+
+
+<!-- =====================================================
+     LOGIN PAGE
+===================================================== -->
+
+<section class="page" id="login">
+
+    <div class="auth-container">
+
+        <div class="auth-visual">
+
+            <div class="big-emoji">🚆</div>
+
+            <h2>Welcome back!</h2>
+
+            <p>
+                Login and continue your railway journey.
+            </p>
+
+            <div class="auth-info">
+                🔐 Secure Login<br>
+                📱 Mobile Number<br>
+                🎫 Easy Booking
+            </div>
+
+        </div>
+
+
+        <div class="auth-form">
+
+            <span class="form-label">ACCOUNT</span>
+
+            <h1>Login</h1>
+
+            <p class="muted">
+                Enter your registered mobile number.
+            </p>
+
+            <label>📱 Mobile Number</label>
+
+            <input type="tel"
+                   id="loginMobile"
+                   maxlength="10"
+                   placeholder="10 digit mobile number">
+
+            <label>🔑 Password</label>
+
+            <input type="password"
+                   id="loginPassword"
+                   placeholder="Enter password">
+
+            <button class="primary-btn"
+                    onclick="loginUser()">
+                Login →
+            </button>
+
+            <p id="loginMessage" class="message"></p>
+
+            <div class="or">
+                <span>OR</span>
+            </div>
+
+            <button class="outline-btn"
+                    onclick="showPage('register')">
+                📝 Create New Account
+            </button>
+
+            <button class="text-btn"
+                    onclick="showPage('home')">
+                ← Back to Home
+            </button>
+
+        </div>
+
+    </div>
+
+</section>
+
+
+<!-- =====================================================
+     REGISTER PAGE
+===================================================== -->
+
+<section class="page" id="register">
+
+    <div class="auth-container">
+
+        <div class="auth-form full-form">
+
+            <span class="form-label">NEW USER</span>
+
+            <h1>Create Account</h1>
+
+            <p class="muted">
+                Register to book your railway tickets.
+            </p>
+
+            <div class="form-grid">
+
+                <div>
+                    <label>👤 Full Name</label>
+                    <input id="regName"
+                           placeholder="Enter full name">
+                </div>
+
+                <div>
+                    <label>📱 Mobile</label>
+                    <input id="regMobile"
+                           maxlength="10"
+                           placeholder="10 digit mobile">
+                </div>
+
+                <div>
+                    <label>📧 Email</label>
+                    <input id="regEmail"
+                           type="email"
+                           placeholder="example@gmail.com">
+                </div>
+
+                <div>
+                    <label>🔑 Password</label>
+                    <input id="regPassword"
+                           type="password"
+                           placeholder="Create password">
+                </div>
+
+            </div>
+
+            <button class="primary-btn"
+                    onclick="registerUser()">
+                Register & Send OTP 📱
+            </button>
+
+            <p id="registerMessage" class="message"></p>
+
+            <button class="text-btn"
+                    onclick="showPage('login')">
+                ← Already have an account? Login
+            </button>
+
+        </div>
+
+    </div>
+
+</section>
+
+
+<!-- =====================================================
+     OTP PAGE
+===================================================== -->
+
+<section class="page" id="otp">
+
+    <div class="otp-box">
+
+        <div class="otp-icon">
+            📱
+        </div>
+
+        <h1>Verify OTP</h1>
+
+        <p>
+            A demo OTP has been generated for your mobile.
+        </p>
+
+        <div class="demo-otp">
+            Demo OTP:
+            <strong id="demoOtp">------</strong>
+        </div>
+
+        <input id="otpInput"
+               maxlength="6"
+               placeholder="Enter 6 digit OTP">
+
+        <button class="primary-btn"
+                onclick="verifyOTP()">
+            Verify OTP ✓
+        </button>
+
+        <p id="otpMessage" class="message"></p>
+
+        <button class="text-btn"
+                onclick="showPage('register')">
+            ← Back
+        </button>
+
+    </div>
+
+</section>
+
+
+<!-- =====================================================
+     ADMIN LOGIN
+===================================================== -->
+
+<section class="page" id="adminLogin">
+
+    <div class="admin-login">
+
+        <div class="admin-icon">
+            👨‍💼
+        </div>
+
+        <span class="form-label">
+            ADMIN PORTAL
+        </span>
+
+        <h1>Admin Login</h1>
+
+        <p class="muted">
+            Railway administration dashboard
+        </p>
+
+        <label>Admin Username</label>
+
+        <input id="adminUsername"
+               placeholder="admin">
+
+        <label>Password</label>
+
+        <input id="adminPassword"
+               type="password"
+               placeholder="admin123">
+
+        <button class="primary-btn"
+                onclick="adminLogin()">
+            Admin Login →
+        </button>
+
+        <p id="adminMessage" class="message"></p>
+
+        <div class="demo-login">
+            Demo Username: <b>admin</b><br>
+            Demo Password: <b>admin123</b>
+        </div>
+
+        <button class="text-btn"
+                onclick="showPage('home')">
+            ← Back to Home
+        </button>
+
+    </div>
+
+</section>
+
+
+<!-- =====================================================
+     DASHBOARD
+===================================================== -->
+
+<section class="page" id="dashboard">
+
+    <div class="dashboard-header">
+
+        <div>
+            <span class="form-label">YOUR DASHBOARD</span>
+
+            <h1>
+                Welcome, <span id="dashboardName">Traveller</span> 👋
+            </h1>
+
+            <p class="muted">
+                Plan your next railway journey.
+            </p>
+        </div>
+
+        <button class="primary-btn small-btn"
+                onclick="showPage('search')">
+            🔎 Book a Train
+        </button>
+
+    </div>
+
+
+    <div class="dashboard-cards">
+
+        <div class="dash-card">
+            <span>🎫</span>
+            <div>
+                <small>Bookings</small>
+                <strong id="bookingCount">0</strong>
+            </div>
+        </div>
+
+        <div class="dash-card">
+            <span>🚆</span>
+            <div>
+                <small>Available Trains</small>
+                <strong id="trainCount">0</strong>
+            </div>
+        </div>
+
+        <div class="dash-card">
+            <span>💺</span>
+            <div>
+                <small>Seats</small>
+                <strong>1000+</strong>
+            </div>
+        </div>
+
+        <div class="dash-card">
+            <span>📍</span>
+            <div>
+                <small>Network</small>
+                <strong>TN</strong>
+            </div>
+        </div>
+
+    </div>
+
+
+    <div class="dashboard-grid">
+
+        <div class="dash-main-card">
+
+            <h2>🚆 Quick Booking</h2>
+
+            <div class="quick-book-grid">
+
+                <button onclick="quickRoute('Chennai','Madurai')">
+                    🏙️ Chennai → Madurai
+                </button>
+
+                <button onclick="quickRoute('Chennai','Coimbatore')">
+                    🌆 Chennai → Coimbatore
+                </button>
+
+                <button onclick="quickRoute('Chennai','Salem')">
+                    🏔️ Chennai → Salem
+                </button>
+
+                <button onclick="quickRoute('Chennai','Trichy')">
+                    🛕 Chennai → Trichy
+                </button>
+
+            </div>
+
+        </div>
+
+        <div class="dash-side-card">
+
+            <h2>📢 Travel Tips</h2>
+
+            <p>💺 Check your seat before payment.</p>
+            <p>📱 Keep your mobile number active.</p>
+            <p>🎫 Save your PNR after booking.</p>
+            <p>⏰ Reach the station early.</p>
+
+        </div>
+
+    </div>
+
+</section>
+
+
+<!-- =====================================================
+     SEARCH PAGE
+===================================================== -->
+
+<section class="page" id="search">
+
+    <div class="section search-section">
+
+        <div class="section-heading">
+            <span>TRAIN SEARCH</span>
+            <h1>Where are you travelling? 🚆</h1>
+            <p>Search demo railway services across Tamil Nadu.</p>
+        </div>
+
+
+        <div class="search-panel">
+
+            <div>
+                <label>📍 From</label>
+
+                <input id="searchFrom"
+                       placeholder="Chennai">
+            </div>
+
+            <button class="swap-btn"
+                    onclick="swapStations()">
+                ⇄
+            </button>
+
+            <div>
+                <label>📍 To</label>
+
+                <input id="searchTo"
+                       placeholder="Madurai">
+            </div>
+
+            <div>
+                <label>📅 Date</label>
+
+                <input type="date"
+                       id="searchDate">
+            </div>
+
+            <button class="primary-btn"
+                    onclick="searchTrains()">
+                Search 🚆
+            </button>
+
+        </div>
+
+
+        <p id="searchMessage" class="message"></p>
+
+
+        <div id="searchResults"
+             class="train-results">
+        </div>
+
+
+        <button class="text-btn"
+                onclick="showPage('home')">
+            ← Back
+        </button>
+
+    </div>
+
+</section>
+
+
+<!-- =====================================================
+     TRAIN LIST
+===================================================== -->
+
+<section class="page" id="trains">
+
+    <div class="section">
+
+        <div class="section-heading">
+            <span>TRAIN NETWORK</span>
+            <h1>Tamil Nadu Train List 🚆</h1>
+            <p>Demo train data for your project.</p>
+        </div>
+
+        <div id="allTrainList"
+             class="train-results">
+        </div>
+
+        <button class="text-btn"
+                onclick="showPage('home')">
+            ← Back
+        </button>
+
+    </div>
+
+</section>
+
+
+<!-- =====================================================
+     AVAILABILITY
+===================================================== -->
+
+<section class="page" id="availability">
+
+    <div class="section">
+
+        <div class="section-heading">
+            <span>SEAT STATUS</span>
+            <h1>Train Availability 💺</h1>
+        </div>
+
+        <div id="availabilityContent">
+        </div>
+
+        <button class="text-btn"
+                onclick="showPage('search')">
+            ← Back to Search
+        </button>
+
+    </div>
+
+</section>
+
+
+<!-- =====================================================
+     BOOKING
+===================================================== -->
+
+<section class="page" id="booking">
+
+    <div class="booking-container">
+
+        <div class="booking-header">
+
+            <span class="form-label">
+                RESERVATION
+            </span>
+
+            <h1>Complete Your Booking 🎫</h1>
+
+            <div class="step-indicator">
+
+                <div class="step active">
+                    1
+                    <small>Train</small>
+                </div>
+
+                <div class="line"></div>
+
+                <div class="step">
+                    2
+                    <small>Seat</small>
+                </div>
+
+                <div class="line"></div>
+
+                <div class="step">
+                    3
+                    <small>Passenger</small>
+                </div>
+
+                <div class="line"></div>
+
+                <div class="step">
+                    4
+                    <small>Payment</small>
+                </div>
+
+            </div>
+
+        </div>
+
+
+        <!-- SELECT TRAIN -->
+
+        <div class="booking-card"
+             id="bookingTrainStep">
+
+            <h2>🚆 Select Train</h2>
+
+            <div id="bookingTrainInfo">
+            </div>
+
+            <button class="primary-btn"
+                    onclick="goSeatStep()">
+                Continue to Seat →
+            </button>
+
+            <button class="text-btn"
+                    onclick="showPage('search')">
+                ← Back
+            </button>
+
+        </div>
+
+
+        <!-- SELECT SEAT -->
+
+        <div class="booking-card hidden"
+             id="seatStep">
+
+            <h2>💺 Select Coach & Seat</h2>
+
+            <div class="coach-buttons">
+
+                <button onclick="selectClass('SL')">
+                    🛏️ SL
+                </button>
+
+                <button onclick="selectClass('3A')">
+                    ❄️ 3A
+                </button>
+
+                <button onclick="selectClass('2A')">
+                    👑 2A
+                </button>
+
+            </div>
+
+            <p id="classInfo">
+                Select a class
+            </p>
+
+            <div id="seatGrid"
+                 class="seat-grid">
+            </div>
+
+            <p id="seatMessage"
+               class="message">
+            </p>
+
+            <button class="primary-btn"
+                    onclick="goPassengerStep()">
+                Continue →
+            </button>
+
+            <button class="text-btn"
+                    onclick="backToTrainStep()">
+                ← Back
+            </button>
+
+        </div>
+
+
+        <!-- PASSENGER -->
+
+        <div class="booking-card hidden"
+             id="passengerStep">
+
+            <h2>👤 Passenger Details</h2>
+
+            <div class="form-grid">
+
+                <div>
+                    <label>Full Name</label>
+                    <input id="passengerName"
+                           placeholder="Passenger name">
+                </div>
+
+                <div>
+                    <label>Age</label>
+                    <input id="passengerAge"
+                           type="number"
+                           placeholder="Age">
+                </div>
+
+                <div>
+                    <label>Gender</label>
+
+                    <select id="passengerGender">
+
+                        <option value="">
+                            Select Gender
+                        </option>
+
+                        <option>Male</option>
+
+                        <option>Female</option>
+
+                        <option>Other</option>
+
+                    </select>
+
+                </div>
+
+                <div>
+                    <label>Mobile</label>
+
+                    <input id="passengerMobile"
+                           maxlength="10"
+                           placeholder="Mobile number">
+
+                </div>
+
+            </div>
+
+            <p id="passengerMessage"
+               class="message">
+            </p>
+
+            <button class="primary-btn"
+                    onclick="goPaymentStep()">
+                Continue to Payment 💳
+            </button>
+
+            <button class="text-btn"
+                    onclick="backToSeatStep()">
+                ← Back
+            </button>
+
+        </div>
+
+
+        <!-- PAYMENT -->
+
+        <div class="booking-card hidden"
+             id="paymentStep">
+
+            <h2>💳 Payment</h2>
+
+            <div class="fare-summary">
+
+                <span>Total Fare</span>
+
+                <strong id="totalFare">
+                    ₹0
+                </strong>
+
+            </div>
+
+            <div class="payment-methods">
+
+                <button onclick="selectPayment('UPI')">
+                    📱 UPI
+                </button>
+
+                <button onclick="selectPayment('Card')">
+                    💳 Card
+                </button>
+
+                <button onclick="selectPayment('Net Banking')">
+                    🏦 Net Banking
+                </button>
+
+            </div>
+
+            <p id="paymentMethodText">
+                Select payment method
+            </p>
+
+            <button class="pay-btn"
+                    onclick="processPayment()">
+                Pay Now 💳
+            </button>
+
+            <p id="paymentMessage"
+               class="message">
+            </p>
+
+            <button class="text-btn"
+                    onclick="backToPassengerStep()">
+                ← Back
+            </button>
+
+        </div>
+
+    </div>
+
+</section>
+
+
+<!-- =====================================================
+     SUCCESS
+===================================================== -->
+
+<section class="page" id="success">
+
+    <div class="success-card">
+
+        <div class="success-icon">
+            ✓
+        </div>
+
+        <span class="form-label">
+            BOOKING CONFIRMED
+        </span>
+
+        <h1>Ticket Booked Successfully! 🎉</h1>
+
+        <p>
+            Your railway reservation has been completed.
+        </p>
+
+        <div class="pnr-box">
+
+            <small>PNR / BOOKING NUMBER</small>
+
+            <strong id="pnrNumber">
+                --------
+            </strong>
+
+        </div>
+
+
+        <div id="ticketDetails"
+             class="ticket-details">
+        </div>
+
+
+        <div class="notification-box">
+
+            📧 Demo email notification sent<br>
+            📱 Demo SMS notification sent
+
+        </div>
+
+
+        <button class="primary-btn"
+                onclick="showPage('dashboard')">
+            🏠 Go to Dashboard
+        </button>
+
+        <button class="outline-btn"
+                onclick="newBooking()">
+            🎫 New Booking
+        </button>
+
+    </div>
+
+</section>
+
+
+<!-- =====================================================
+     ADMIN DASHBOARD
+===================================================== -->
+
+<section class="page" id="adminDashboard">
+
+    <div class="section">
+
+        <div class="admin-dashboard-header">
+
+            <div>
+                <span class="form-label">ADMIN CONTROL</span>
+
+                <h1>
+                    Railway Administration 👨‍💼
+                </h1>
+            </div>
+
+            <button class="outline-btn"
+                    onclick="adminLogout()">
+                Logout
+            </button>
+
+        </div>
+
+
+        <div class="admin-stats">
+
+            <div>
+                🚆
+                <strong id="adminTrainCount">
+                    0
+                </strong>
+                <small>Trains</small>
+            </div>
+
+            <div>
+                👤
+                <strong id="adminUserCount">
+                    0
+                </strong>
+                <small>Users</small>
+            </div>
+
+            <div>
+                🎫
+                <strong id="adminBookingCount">
+                    0
+                </strong>
+                <small>Bookings</small>
+            </div>
+
+            <div>
+                💰
+                <strong id="adminRevenue">
+                    ₹0
+                </strong>
+                <small>Revenue</small>
+            </div>
+
+        </div>
+
+
+        <div class="admin-table-wrapper">
+
+            <h2>🚆 Train Management</h2>
+
+            <table>
+
+                <thead>
+
+                    <tr>
+                        <th>No</th>
+                        <th>Train</th>
+                        <th>Route</th>
+                        <th>Departure</th>
+                        <th>Arrival</th>
+                        <th>Days</th>
+                    </tr>
+
+                </thead>
+
+                <tbody id="adminTrainTable">
+                </tbody>
+
+            </table>
+
+        </div>
+
+    </div>
+
+</section>
+
+
+<!-- =====================================================
+     FOOTER
+===================================================== -->
+
+<footer>
+
+    <div>
+        🚆 <strong>RailNova</strong>
+    </div>
+
+    <p>
+        Demo Railway Reservation Website
+    </p>
+
+    <small>
+        Built with HTML • CSS • JavaScript
+    </small>
+
+</footer>
+
+
+<script src="script.js"></script>
+
+</body>
+</html>
